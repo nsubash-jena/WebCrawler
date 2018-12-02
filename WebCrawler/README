@@ -1,1 +1,7 @@
-this proj
+This Project is build using Maven Tool.All the maven dependencies are added to pom.xml.
+CrawlerMainApp.java-This class  contains main method and the  entry point of the application.
+WebCrawlerWrapper.java-This file is called  from  main  class and  invoked Utility class and service class.
+Utility.java-contains the logic to  read the property file ,validate the url and write the result data in output.txt file.
+WebConnector.java-has the logic to connect to provided Domain URL.
+WebCrawlerServic.java-This class contains the business logic to to get all images,links and urls details from the domain url.
+WebCrawlerException-used to define the custom exception and exception handling.
