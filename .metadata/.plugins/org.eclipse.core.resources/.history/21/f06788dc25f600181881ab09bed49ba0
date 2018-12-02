@@ -1,0 +1,80 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import java.util.HashSet;
+
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import com.wipro.wc.demo.exception.WebCrawlerException;
+import com.wipro.wc.demo.utility.WebConnector;
+
+/**
+ * @author 
+ *
+ */
+public class WebCrawlerServic {
+
+	final static Logger logger = Logger.getLogger(WebCrawlerServic.class);
+
+	ICrawler connector = null;
+	Set<String> imageSites = null;
+	Set<String> linkSites = null;
+
+	/**
+	 * @return List<String>
+	 */
+	//
+
+	public void runWebCrawler(String URL) {
+		logger.info(" runWebCrawler() starts");
+		try {
+
+			connector = new WebConnector();
+			Document document = connector.getConnection(URL);
+			if (document == null) {
+				logger.error("There is no data found for this web page");
+				throw new WebCrawlerException("Please check  the Domain URL or the web site");
+			}
+			Elements links = document.select(ICrawler.HREF_TAG);
+			Elements media = document.select(ICrawler.SRC_TAG);
+			Elements imports = document.select(ICrawler.LINK_TAG);
+			imageSites = new HashSet<String>();
+			for (Element src : media) {
+				if (src.tagName().equals("img")) {
+					if (logger.isDebugEnabled()) {
+						logger.debug(" Tag name:" + src.attr(ICrawler.ABS_IMG_TAG));
+					}
+				}
+				if (!src.attr(ICrawler.ABS_IMG_TAG).isEmpty() || src.attr(ICrawler.ABS_IMG_TAG) != null) {
+					imageSites.add(src.attr(ICrawler.ABS_IMG_TAG));
+				}
+
+			}
+
+			for (Element link : links) {
+
+				if (logger.isDebugEnabled()) {
+					logger.debug(" Tag name:" + link.attr(ICrawler.ABS_LINK_TAG));
+				}
+				linkSites.add(link.attr(ICrawler.ABS_LINK_TAG));
+
+			}
+			
+			logger.info(" runWebCrawler() Ends");
+
+		} catch (Exception e) {
+			logger.error("issue occured while accessing the web data");
+			throw new WebCrawlerException("issue occured ........"+e.toString());
+		}
+
+	}
+
+}

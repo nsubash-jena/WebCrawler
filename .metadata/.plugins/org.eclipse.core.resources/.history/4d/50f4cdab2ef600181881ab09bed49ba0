@@ -1,0 +1,129 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import java.util.HashSet;
+
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.jsoup.Connection;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import com.wipro.wc.demo.exception.WebCrawlerException;
+import com.wipro.wc.demo.utility.WebConnector;
+
+/**
+ * @author 
+ *
+ */
+public class WebCrawlerServic {
+
+	final static Logger logger = Logger.getLogger(WebCrawlerServic.class);
+
+	ICrawler connector = null;
+	Document document=null;
+	//Set<String> imageSites = null;
+	Set<String> linkSites = null;
+
+	/**
+	 * @return List<String>
+	 */
+	//
+
+	public  void runWebCrawler(String URL) {
+		logger.info(" runWebCrawler() starts");
+		try {
+
+			connector = new WebConnector();
+			Connection Connection = connector.getConnection(URL);
+			document=connector.getDocument(Connection);
+			if (document == null) {
+				logger.error("There is no data found for this web page");
+				throw new WebCrawlerException("Please check  the Domain URL or the web site");
+			}
+			Elements links = document.select(ICrawler.HREF_TAG);
+			
+			//Elements imports = document.select(ICrawler.LINK_TAG);
+			//HashSet set=(HashSet) getImages(document);
+			getLinks(document);
+			//System.out.println(set);
+	
+		/*	synchronized (links) {
+			for (Element link : links) {
+  System.out.println("link");
+				if (logger.isDebugEnabled()) {
+					logger.debug(" Tag name:" + link.attr(ICrawler.ABS_LINK_TAG));
+				}
+				System.out.println(link.attr("abs:href"));
+				//linkSites.add(link.attr(ICrawler.ABS_LINK_TAG));
+
+			}
+			}*/
+			Connection.timeout(0);
+			logger.info(" runWebCrawler() Ends");
+
+		} catch (Exception e) {
+			logger.error("issue occured while accessing the web data");
+			throw new WebCrawlerException("issue occured ........:"+e.toString());
+		}
+
+	}
+	
+	public synchronized Set<String> getImages(Document document){
+		Elements media = document.select(ICrawler.SRC_TAG);
+	
+				Set<String> imageSites=new HashSet<String>();
+			for (Element src : media) {
+				if (src.tagName().equals("img")) {
+					if (logger.isDebugEnabled()) {
+						logger.debug(" Tag name:" + src.attr(ICrawler.ABS_IMG_TAG));
+					}
+					String ImageTag=src.attr(ICrawler.ABS_IMG_TAG);
+					if (!ImageTag.isEmpty() || ImageTag != null) {
+						
+						if(ImageTag.startsWith("https") || ImageTag.startsWith("http")){
+							if(!ImageTag.equalsIgnoreCase("[]")){
+								
+								//System.out.println(ImageTag);
+								imageSites.add(ImageTag);
+							}
+						}
+					}
+				}
+				
+			}
+				//System.out.println(set);
+
+           
+		return imageSites;
+		
+		
+	}
+	
+	
+	public synchronized Set<String> getLinks(Document document){
+		Elements links = document.select(ICrawler.LINK_TAG);
+	
+				Set<String> imageSites=new HashSet<String>();
+				for (Element link : links) {
+					 // System.out.println("link");
+									if (logger.isDebugEnabled()) {
+										logger.debug(" Tag name:" + link.attr(ICrawler.ABS_LINK_TAG));
+									}
+									System.out.println(link.attr("abs:href"));
+									//linkSites.add(link.attr(ICrawler.ABS_LINK_TAG));
+
+								}
+				//System.out.println(set);
+
+           
+		return imageSites;
+		
+		
+	}
+
+}

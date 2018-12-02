@@ -1,0 +1,64 @@
+package com.wipro.wc.demo.utility;
+
+import java.io.IOException;
+import java.util.Properties;
+
+import org.apache.log4j.Logger;
+
+import com.wipro.wc.demo.WebCrawlerServic;
+import com.wipro.wc.demo.exception.WebCrawlerException;
+
+public class Utility {
+	
+	final static Logger logger = Logger.getLogger(WebCrawlerServic.class);
+	public String DomainValidation(String DomainURL){
+		
+		
+		if(DomainURL==null || DomainURL.isEmpty())
+    	{
+    		logger.error("DomainURL is null or empty");
+    		throw new WebCrawlerException("Please Provide the Domain URL");
+    	}
+		
+	
+	    if(!DomainURL.startsWith("http") && !DomainURL.startsWith("https")){
+	    	DomainURL = "http://" + DomainURL;
+	
+		}  
+	 
+		
+		return DomainURL;
+	}	
+	
+
+	
+	public String getPropValues() throws IOException {
+		InputStream inputStream;
+		try {
+			Properties prop = new Properties();
+			String propFileName = "URL.properties";
+ 
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+ 
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+ 
+			Date time = new Date(System.currentTimeMillis());
+ 
+			// get the property value and print it out
+			String user = prop.getProperty("user");
+			String company1 = prop.getProperty("company1");
+			String company2 = prop.getProperty("company2");
+			String company3 = prop.getProperty("company3");
+ 
+			result = "Company List = " + company1 + ", " + company2 + ", " + company3;
+			System.out.println(result + "\nProgram Ran on " + time + " by user=" + user);
+		} catch (Exception e) {
+			System.out.println("Exception: " + e);
+		
+}
+		
+	}

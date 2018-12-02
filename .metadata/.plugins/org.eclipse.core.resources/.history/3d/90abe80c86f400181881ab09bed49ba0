@@ -1,0 +1,77 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+/**
+ * @author Subash
+ *
+ */
+public class JsoupCrawler implements ICrawler {
+
+	/* (non-Javadoc)
+	 * @see com.wipro.wc.demo.ICrawler#runCrawler()
+	 */
+	private String urlListFile = Conf.getString("JsoupCrawler.urlListFile");
+    private String reportFile = Conf.getString("JsoupCrawler.reportFile");
+
+    public void runCrawler() {
+		// TODO Auto-generated method stub
+        List<String> urls = this.getUrlList();
+        for (String url : urls) {
+            this.scan(url);
+        }
+    }
+
+    /**
+     * @return List<String>
+     */
+    public List<String> getUrlList() {
+        List<String> result = null;
+        try {
+            result = Files.readLines(new File(this.urlListFile), Charsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * @param url
+     */
+    public void scan(String url) {
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Integer size = doc.body().toString().length();
+        String title = doc.title();
+        String log = url + " === " + size + " === " + title + "\n";
+
+        System.out.println(log);
+
+        try {
+           // Files.append(log, new File(this.reportFile), Charsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+	
+		
+	
+	
+	
+
+}

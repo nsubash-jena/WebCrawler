@@ -1,0 +1,27 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo.exception;
+
+/**
+ * @author Subash
+ *
+ */
+public class CustomException extends RuntimeException {
+	
+	private String 	exception;
+	
+
+	public CustomException(String msg) {
+		super(msg);
+	}
+
+	public CustomException(String exception, String msg) {
+		// TODO Auto-generated constructor stub
+		super(msg);
+		this.exception = exception;
+	}
+
+	
+
+}

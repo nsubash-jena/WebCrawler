@@ -1,0 +1,27 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import org.apache.log4j.Logger;
+
+/**
+ * @author Subash
+ *
+ */
+public class CrawlerMainApp {
+
+	/**
+	 * @param args
+	 */
+	
+	final static Logger logger = Logger.getLogger(CrawlerMainApp.class);
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	
+        crawlerMaker.useJsoupCrawler();
+
+	}
+
+}

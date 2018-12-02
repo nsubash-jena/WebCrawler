@@ -1,0 +1,21 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import org.jsoup.nodes.Document;
+
+/**
+ * @author Subash
+ *
+ */
+public interface ICrawler {
+	
+	public static String HREF_TAG="a[href]";
+	public static String SRC_TAG="[src]";
+	public static String LINK_TAG="link[href]";
+	public static  String USER_AGENT =  "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.112 Safari/535.1";
+
+	public void runCrawler();
+	public Document getConnection(String domainURL);
+}

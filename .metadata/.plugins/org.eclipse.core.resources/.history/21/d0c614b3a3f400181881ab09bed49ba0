@@ -1,0 +1,23 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+/**
+ * @author Subash
+ *
+ */
+public class CrawlerMainApp {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		CrawlerMaker crawlerMaker = new CrawlerMaker();
+        crawlerMaker.useJsoupCrawler();
+
+	}
+
+}

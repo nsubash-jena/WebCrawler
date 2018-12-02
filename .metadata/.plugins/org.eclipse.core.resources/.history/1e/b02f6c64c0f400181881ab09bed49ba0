@@ -1,0 +1,35 @@
+package com.wipro.wc.demo.utility;
+
+import org.apache.log4j.Logger;
+
+import com.wipro.wc.demo.WebCrawlerServic;
+import com.wipro.wc.demo.exception.WebCrawlerException;
+
+public class Utility {
+	
+	final static Logger logger = Logger.getLogger(WebCrawlerServic.class);
+	public String DomainValidation(String DomainURL){
+		
+		
+		if(DomainURL==null || DomainURL.isEmpty())
+    	{
+    		logger.error("DomainURL is null or empty");
+    		throw new WebCrawlerException("Please Provide the Domain URL");
+    	}
+		
+	
+	    if(!DomainURL.startsWith("http") && !DomainURL.startsWith("https")){
+	    	DomainURL = "http://" + DomainURL;
+	
+		}  
+	 
+		
+		return DomainURL;
+	}
+	
+	
+		
+		
+	}
+
+}

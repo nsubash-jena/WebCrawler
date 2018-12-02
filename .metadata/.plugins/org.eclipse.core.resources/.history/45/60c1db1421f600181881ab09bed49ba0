@@ -1,0 +1,34 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import org.apache.log4j.Logger;
+
+import com.wipro.wc.demo.utility.Utility;
+
+/**
+ * @author Subash
+ *
+ */
+public class CrawlerMainApp {
+
+	/**
+	 * @param args
+	 */
+	
+	final static Logger logger = Logger.getLogger(CrawlerMainApp.class);
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+	
+		WebCrawlerWrapper wrapper=new WebCrawlerWrapper();
+		wrapper.invokeWebSite();
+		
+			
+		  
+	}
+	}
+

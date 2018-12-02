@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+/**
+ * @author Avinash
+ *
+ */
+public class JsoupCrawler implements ICrawler {
+
+	/* (non-Javadoc)
+	 * @see com.wipro.wc.demo.ICrawler#runCrawler()
+	 */
+	public void runCrawler() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,46 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo.utility;
+
+import java.io.IOException;
+
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import com.wipro.wc.demo.ICrawler;
+
+/**
+ * @author Subash
+ *
+ */
+public class WebConnection implements ICrawler {
+
+	public void runCrawler() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Document getConnection(String domainURL) {
+		// TODO Auto-generated method stub
+		
+		Document doc = null;
+        try {
+        	
+        	// We are using  USER_AGENT it thinks that the request is using a normal web browser.
+        	Connection connection = Jsoup.connect(domainURL).userAgent(USER_AGENT);
+             doc = connection.get();
+             // 200 status code indicates that everything is going good.
+             if(connection.response().statusCode() == 200) 
+             {
+             System.out.println("\n**Visiting** Received web page at " + domainURL);
+               }
+            //doc = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            
+        }
+		
+	}
+
+}

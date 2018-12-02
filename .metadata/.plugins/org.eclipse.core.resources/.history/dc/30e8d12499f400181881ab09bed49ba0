@@ -1,0 +1,119 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+
+/**
+ * @author Subash
+ *
+ */
+public class JsoupCrawler implements ICrawler {
+
+	/* (non-Javadoc)
+	 * @see com.wipro.wc.demo.ICrawler#runCrawler()
+	 */
+	String domainName = "";
+	private static Pattern patternDomainName;
+	  private Matcher matcher;
+	  private static final String DOMAIN_NAME_PATTERN 
+		= "([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}";
+	  static {
+		patternDomainName = Pattern.compile(DOMAIN_NAME_PATTERN);
+	  }
+
+    public void runCrawler() {
+		// TODO Auto-generated method stub
+        List<String> urls = this.getUrlList();
+        for (String url : urls) {
+            this.scan(url);
+        }
+    }
+
+    /**
+     * @return List<String>
+     */
+    public List<String> getUrlList() {
+        List<String> result = new ArrayList<String>();
+        result.add("https://www.wiprodigital.com");
+        
+        
+        
+        return result;
+    }
+
+    /**
+     * @param url
+     */
+    public void scan(String url) {
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Integer size = doc.body().toString().length();
+        String title = doc.title();
+        String log = url + " === " + size + " === " + title + "\n";
+
+        System.out.println(log);
+        
+        Elements questions = doc.select("a");
+		for(Element link: questions){
+			//System.out.println(link);
+			//String temp = link.attr("href");	
+			//System.out.println(temp);
+			//page.attr("abs:href")
+			// getDomainName(temp);
+		}
+		
+		  Elements images = doc.getElementsByTag("img");
+		  for(Element image: questions){
+				//System.out.println(image);
+				String temp = image.attr("abs:src");	
+				System.out.println(temp);
+				//page.attr("abs:href")
+				// getDomainName(temp);
+			}
+			
+
+        try {
+           // Files.append(log, new File(this.reportFile), Charsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+       
+    }
+
+	
+    public String getDomainName(String url){
+		
+    	String domainName = "";
+    	matcher = patternDomainName.matcher(url);
+    	if (matcher.find()) {
+    		domainName = matcher.group(0).toLowerCase().trim();
+    	}
+    	System.out.println(domainName);
+    	return domainName;
+    		
+      }	
+	
+	
+	
+
+}

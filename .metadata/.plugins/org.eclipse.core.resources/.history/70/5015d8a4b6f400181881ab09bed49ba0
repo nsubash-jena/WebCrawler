@@ -1,0 +1,97 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.log4j.Logger;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import com.wipro.wc.demo.exception.WebCrawlerException;
+import com.wipro.wc.demo.utility.WebConnector;
+
+
+/**
+ * @author Subash
+ *
+ */
+public class WebCrawlerServic {
+
+	final static Logger logger = Logger.getLogger(WebCrawlerServic.class);
+	
+
+	ICrawler connector=null;
+	
+
+    /**
+     * @return List<String>
+     */
+	//
+    
+	public void runWebCrawler() {
+		
+		connector=new WebConnector();
+		Document document=connector.getConnection("https://www.wiprodigital.com");
+		if(document==null)
+    	{
+    		logger.error("There is no data found for this web page");
+    		throw new WebCrawlerException("Please check  the Domain URL or the web site");
+    	}
+        Elements links = document.select(ICrawler.HREF_TAG);
+        Elements media = document.select(ICrawler.SRC_TAG);
+        Elements imports = document.select(ICrawler.LINK_TAG);
+
+     /*   for (Element src : media) {
+            if (src.tagName().equals("img")) {
+            	System.out.println(" Tag name" +src.attr("abs:src"));
+            }
+            else {
+            	
+            }
+            	System.out.println( src.attr("abs:src"));
+        }
+*/
+       
+       /* for (Element link : imports) {
+        	System.out.println(link.attr("abs:href"));
+        	
+        	//System.out.println(link.attr("REEL"));
+        	System.out.println(link.attr("rel"));
+        }*/
+
+       
+        for (Element link : links) {
+           // print(" * a: <%s>  (%s)", link.attr("abs:href"), trim(link.text(), 35));
+        	
+                System.out.println(link.text());
+        	
+              
+        }
+
+			
+
+        try {
+           // Files.append(log, new File(this.reportFile), Charsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+       
+    }
+
+
+	
+	
+
+}

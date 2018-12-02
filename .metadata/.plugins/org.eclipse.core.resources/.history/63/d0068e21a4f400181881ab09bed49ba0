@@ -1,0 +1,22 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+/**
+ * @author Subash
+ *
+ */
+public class CrawlerMaker {
+
+	
+	private ICrawler jsoupCrawler;
+
+    public CrawlerMaker() {
+        jsoupCrawler = new JsoupCrawler();
+    }
+
+    public void useJsoupCrawler() {
+        jsoupCrawler.runCrawler();
+    }
+}

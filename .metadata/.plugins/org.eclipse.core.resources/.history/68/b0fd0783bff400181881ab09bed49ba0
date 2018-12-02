@@ -1,0 +1,38 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.apache.log4j.Logger;
+
+/**
+ * @author Subash
+ *
+ */
+public class CrawlerMainApp {
+
+	/**
+	 * @param args
+	 */
+	
+	final static Logger logger = Logger.getLogger(CrawlerMainApp.class);
+	public static void main(String[] args) throws MalformedURLException {
+		// TODO Auto-generated method stub
+		//public static String getDomainName(String url) throws MalformedURLException{
+			
+			String url="wiprodigital.com";
+			if (url.contains("wipro"))
+			{
+		
+		    if(!url.startsWith("http") && !url.startsWith("https")){
+		         url = "http://" + url;
+		    } 
+			}  
+		  
+		  
+	}
+	}
+

@@ -1,0 +1,35 @@
+package com.wipro.wc.demo;
+
+import java.io.IOException;
+
+import org.apache.log4j.Logger;
+import org.jsoup.nodes.Document;
+
+import com.wipro.wc.demo.exception.WebCrawlerException;
+import com.wipro.wc.demo.utility.Utility;
+
+public class WebCrawlerWrapper  {
+
+	final static Logger logger = Logger.getLogger(WebCrawlerServic.class);
+	WebCrawlerServic service=null;
+	
+	Utility util=null;
+	public void invokeWebSite() {
+		// TODO Auto-generated method stub
+		
+		try {
+			
+	
+		util=new Utility();
+		String URL=util.getURLFromPropFile();
+		service=new WebCrawlerServic();
+		service.runWebCrawler(URL);
+		}
+		catch(IOException IE){
+			logger.error("There is no data found for this web page");
+			throw new WebCrawlerException("Please check  the Domain URL or the web site");
+		}
+	}
+
+
+}

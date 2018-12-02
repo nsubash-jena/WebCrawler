@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo.exception;
+
+/**
+ * @author Avinash
+ *
+ */
+public class CustomException extends RuntimeException {
+
+}

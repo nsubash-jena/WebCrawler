@@ -1,0 +1,14 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+/**
+ * @author Subash
+ *
+ */
+public interface ICrawler {
+
+	public void runCrawler();
+	
+}

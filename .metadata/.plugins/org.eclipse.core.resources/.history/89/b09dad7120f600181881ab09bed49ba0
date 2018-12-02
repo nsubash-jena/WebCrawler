@@ -1,0 +1,29 @@
+package com.wipro.wc.demo;
+
+import org.jsoup.nodes.Document;
+
+public class WebCrawlerWrapper  implements ICrawler{
+
+	
+	WebCrawlerServic service=null;
+	public void runCrawler() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Document getConnection(String domainURL) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void invokeWebSite(String URL) {
+		// TODO Auto-generated method stub
+		service=new WebCrawlerServic();
+		service.runWebCrawler(URL);
+	}
+
+	
+	
+	
+
+}

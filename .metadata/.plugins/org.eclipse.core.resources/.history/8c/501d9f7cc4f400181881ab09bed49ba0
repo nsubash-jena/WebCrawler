@@ -1,0 +1,29 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import java.net.MalformedURLException;
+
+import org.apache.log4j.Logger;
+
+/**
+ * @author Subash
+ *
+ */
+public class CrawlerMainApp {
+
+	/**
+	 * @param args
+	 */
+	
+	final static Logger logger = Logger.getLogger(CrawlerMainApp.class);
+	public static void main(String[] args) throws MalformedURLException {
+		// TODO Auto-generated method stub
+		
+			
+			
+		  
+	}
+	}
+

@@ -1,0 +1,18 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+/**
+ * @author Subash
+ *
+ */
+public interface ICrawler {
+	
+	public static String HREF_TAG="a[href]";
+	public static String SRC_TAG="[src]";
+	public static String LINK_TAG="link[href]";
+
+	public void runCrawler();
+	
+}

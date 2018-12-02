@@ -1,0 +1,46 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo.utility;
+
+import java.io.IOException;
+
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import com.wipro.wc.demo.ICrawler;
+
+/**
+ * @author Subash
+ *
+ */
+public class WebConnection implements ICrawler {
+
+	public void runCrawler() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Document getConnection(String domainURL) {
+		// TODO Auto-generated method stub
+		
+		Document doc = null;
+        try {
+        	
+        	Connection connection = Jsoup.connect(domainURL).userAgent(USER_AGENT);
+             doc = connection.get();
+             
+             if(connection.response().statusCode() == 200) // 200 is the HTTP OK status code
+                 // indicating that everything is great.
+{
+System.out.println("\n**Visiting** Received web page at " + url);
+}
+            //htmlDocument = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            
+        }
+		
+	}
+
+}

@@ -1,0 +1,99 @@
+/**
+ * 
+ */
+package com.wipro.wc.demo;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.log4j.Logger;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import com.wipro.wc.demo.exception.WebCrawlerException;
+import com.wipro.wc.demo.utility.WebConnector;
+
+
+/**
+ * @author Subash
+ *
+ */
+public class WebCrawlerServic {
+
+	final static Logger logger = Logger.getLogger(WebCrawlerServic.class);
+	
+
+	ICrawler connector=null;
+	Set<String> sites=null;
+	
+
+    /**
+     * @return List<String>
+     */
+	//
+    
+	public void runWebCrawler() {
+		
+		try {
+		
+		connector=new WebConnector();
+		Document document=connector.getConnection("https://www.wiprodigital.com");
+		if(document==null)
+    	{
+    		logger.error("There is no data found for this web page");
+    		throw new WebCrawlerException("Please check  the Domain URL or the web site");
+    	}
+        Elements links = document.select(ICrawler.HREF_TAG);
+        Elements media = document.select(ICrawler.SRC_TAG);
+        Elements imports = document.select(ICrawler.LINK_TAG);
+        sites=new HashSet<String>();
+       for (Element src : media) {
+            if (src.tagName().equals("img")) {
+            	if(logger.isDebugEnabled()) {
+            	logger.debug(" Tag name:" +src.attr(ICrawler.ABS_IMG_TAG));
+            	}
+            }
+            	if(!src.attr(ICrawler.ABS_IMG_TAG).isEmpty()|| src.attr(ICrawler.ABS_IMG_TAG)!=null) {
+            	sites.add(src.attr(ICrawler.ABS_IMG_TAG));
+            }
+           	
+            
+        }
+       
+        for (Element link : links) {
+               
+        	if(logger.isDebugEnabled()) {
+            	logger.debug(" Tag name:" +link.attr(ICrawler.ABS_LINK_TAG));
+            	}
+                sites.add(link.attr(ICrawler.ABS_LINK_TAG));
+        	
+              
+        }
+
+			
+
+        
+           // Files.append(log, new File(this.reportFile), Charsets.UTF_8);
+        } catch (Exception e) {
+        	logger.error("There is no data found for this web page");
+    		throw new WebCrawlerException("Please check  the Domain URL or the web site");
+        }
+        
+       
+    }
+
+
+	
+	
+
+}

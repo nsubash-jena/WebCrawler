@@ -1,0 +1,32 @@
+package com.wipro.wc.demo;
+
+import java.io.IOException;
+
+import org.jsoup.nodes.Document;
+
+import com.wipro.wc.demo.utility.Utility;
+
+public class WebCrawlerWrapper  {
+
+	
+	WebCrawlerServic service=null;
+	
+	Utility util=null;
+	public void invokeWebSite() {
+		// TODO Auto-generated method stub
+		
+		try {
+			
+	
+		util=new Utility();
+		String URL=util.getURLFromPropFile();
+		service=new WebCrawlerServic();
+		service.runWebCrawler(URL);
+		}
+		catch(IOException IE){
+			
+		}
+	}
+
+
+}
